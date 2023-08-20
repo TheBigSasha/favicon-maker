@@ -1,6 +1,6 @@
 # favicon-maker README
 
-This is the README for your extension "favicon-maker". After writing up a brief description, we recommend including the following sections.
+vscode extension for automatically converting and generating favicons from a single svg source logo
 
 ## Features
 

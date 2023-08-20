@@ -19,7 +19,7 @@
       },
       {
         "command": "extension.convertSVGToPNG",
-        "title": "Rasterize to PNG (all sizes)"
+        "title": "Rasterize to PNG"
       } 
     ],
     "menus": {

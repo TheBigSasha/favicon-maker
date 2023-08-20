@@ -17,6 +17,8 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('extension.convertSVGToPNG', async (uri: vscode.Uri) => {
 			// inform the user that the image conversion is in progress
 			vscode.window.showInformationMessage('Converting SVG to PNG...');
+			//TODO: add a dialog to ask for the sizes (with platform presets)
+			//TODO: based on surrounding files, auto pick the preset
 			const svgData = fs.readFileSync(uri.fsPath, 'utf8');
 			const pngData = await sharp(Buffer.from(svgData)).resize(512, 512).png().toBuffer();
             const pngPath = path.join(path.dirname(uri.fsPath), path.basename(uri.fsPath, '.svg') + '.png');

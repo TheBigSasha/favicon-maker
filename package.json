@@ -3,6 +3,12 @@
   "displayName": "favicon maker",
   "description": "Adds options to process a single source icon (svg) into all necessary files for favicons and app icons",
   "version": "0.0.1",
+  "publisher": "thebigsasha",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheBigSasha/favicon-maker-vscode-extension"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.81.0"
   },

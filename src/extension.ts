@@ -14,19 +14,26 @@ class SVGCodeActionProvider implements vscode.CodeActionProvider {
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
-        vscode.commands.registerCommand('extension.convertSVGToPNG', async (uri: vscode.Uri) => {
+		vscode.commands.registerCommand('extension.convertSVGToPNG', async (uri: vscode.Uri) => {
 			// inform the user that the image conversion is in progress
 			vscode.window.showInformationMessage('Converting SVG to PNG...');
-			//TODO: add a dialog to ask for the sizes (with platform presets)
-			//TODO: based on surrounding files, auto pick the preset
+	
+			// add a dialog to ask for the sizes (with platform presets)
+			const sizeOptions: string[] = ['32x32', '128x128', '180x180', '256x256', '512x512', '1024x1024'];
+			const size = await vscode.window.showQuickPick(sizeOptions, { placeHolder: 'Select the size of the PNG' });
+			if (!size) {
+				return;
+			}
+			const [width, height] = size.split('x').map(Number);
+	
 			const svgData = fs.readFileSync(uri.fsPath, 'utf8');
-			const pngData = await sharp(Buffer.from(svgData)).resize(512, 512).png().toBuffer();
-            const pngPath = path.join(path.dirname(uri.fsPath), path.basename(uri.fsPath, '.svg') + '.png');
-
-            fs.writeFileSync(pngPath, pngData);
-
-            vscode.window.showInformationMessage(`Converted SVG to PNG: ${pngPath}`);
-        })
+			const pngData = await sharp(Buffer.from(svgData)).resize(width, height).png().toBuffer();
+			const pngPath = path.join(path.dirname(uri.fsPath), path.basename(uri.fsPath, '.svg') + size + '.png');
+	
+			fs.writeFileSync(pngPath, pngData);
+	
+			vscode.window.showInformationMessage(`Converted SVG to PNG: ${pngPath}`);
+		})	
     );
 
     context.subscriptions.push(

@@ -46,9 +46,11 @@ export function activate(context: vscode.ExtensionContext) {
             // inform the user that the image conversion is in progress
             vscode.window.showInformationMessage('Converting PNG to ICO...');
             const pngData = fs.readFileSync(uri.fsPath);
+			//@ts-ignore
             const icoData = await ico.sharpsToIco([sharp(pngData)], null);
             const icoPath = path.join(path.dirname(uri.fsPath), path.basename(uri.fsPath, '.png') + '.ico');
 
+			//@ts-ignore
             fs.writeFileSync(icoPath, icoData);
 
             vscode.window.showInformationMessage(`Converted PNG to ICO: ${icoPath}`);
